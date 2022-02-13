@@ -1,6 +1,5 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
-import Toggle from './Toggle';
 import { StoreItem } from './Inventory';
 
 interface InventoryItemProps {
@@ -18,11 +17,17 @@ function InventoryItem({ item, onRemove, onUpdate }: InventoryItemProps) {
     onUpdate(item.id, { ...item, [field]: value });
   };
 
+  const itemCost = useMemo(() => {
+    return item.quantity * item.price;
+  }, [item.quantity, item.price]);
+
   return (
     <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
       <td className="py-4 px-6 text-sm text-left font-medium text-gray-900 whitespace-nowrap dark:text-white">{item.name}</td>
       <td className="py-4 px-6 text-sm text-left font-medium text-gray-500 whitespace-nowrap dark:text-white">{item.category}</td>
       <td className="py-4 px-6 text-sm text-right font-medium text-gray-900 whitespace-nowrap dark:text-white">${item.price}</td>
+      <td className="py-4 px-6 text-sm text-right font-medium text-gray-900 whitespace-nowrap dark:text-white">{item.quantity}</td>
+      <td className="py-4 px-6 text-sm text-right font-medium text-gray-900 whitespace-nowrap dark:text-white">${itemCost}</td>
       <td className="py-4 px-6 text-sm text-left font-medium text-gray-900 whitespace-nowrap dark:text-white">
         <input
           type="checkbox"

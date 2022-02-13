@@ -5,10 +5,10 @@ import Inventory from './components/Inventory';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="App-body">
         {/* React Memo demo */}
         <Inventory />
-      </header>
+      </div>
     </div>
   )
 }

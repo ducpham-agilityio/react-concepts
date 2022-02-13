@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import InventoryItem from './InventoryItem';
 
@@ -7,6 +7,7 @@ export type StoreItem = {
   name: string;
   category: string;
   price: number;
+  quantity: number;
   enabled: boolean;
 };
 
@@ -16,6 +17,7 @@ const inventoryItems: StoreItem[] = [
     name: 'Apple iMac 27"',
     category: 'Computer',
     price: 1000,
+    quantity: 10,
     enabled: true,
   },
   {
@@ -23,6 +25,7 @@ const inventoryItems: StoreItem[] = [
     name: 'Apple iPhone 13 Pro Max',
     category: 'Phone',
     price: 1500,
+    quantity: 18,
     enabled: true,
   },
   {
@@ -30,6 +33,7 @@ const inventoryItems: StoreItem[] = [
     name: 'Apple MacBook Pro 13"',
     category: 'Laptop',
     price: 1999,
+    quantity: 50,
     enabled: true,
   },
   {
@@ -37,6 +41,7 @@ const inventoryItems: StoreItem[] = [
     name: 'Apple MacBook Air 13"',
     category: 'Laptop',
     price: 1500,
+    quantity: 112,
     enabled: true,
   },
   {
@@ -44,25 +49,13 @@ const inventoryItems: StoreItem[] = [
     name: 'Apple iPod Touch',
     category: 'Accessories',
     price: 699,
+    quantity: 6,
     enabled: true,
   }
 ];
 
 export default function Inventory() {
   const [ items, setItems ] = useState<StoreItem[]>(inventoryItems);
-
-  const addItem = () => {
-    setItems([
-      ...items,
-      {
-        id: 6,
-        name: 'Apple Watch Series 5',
-        category: 'Accessories',
-        price: 299,
-        enabled: false,
-      }
-    ]);
-  };
 
   const removeItem = useCallback((id: number) => {
     setItems(prevItems => prevItems.filter(item => item.id !== id));
@@ -84,6 +77,20 @@ export default function Inventory() {
     });
   }, []);
 
+  const addItem = () => {
+    setItems([
+      ...items,
+      {
+        id: 6,
+        name: 'Apple Watch Series 5',
+        category: 'Accessories',
+        price: 299,
+        quantity: 25,
+        enabled: false,
+      }
+    ]);
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-col">
@@ -94,13 +101,19 @@ export default function Inventory() {
               <thead className="bg-gray-100 dark:bg-gray-700">
                 <tr>
                   <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                    Product Name
+                    Item
                   </th>
                   <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                     Category
                   </th>
                   <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
                     Price
+                  </th>
+                  <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+                    Quantity
+                  </th>
+                  <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+                    Item Cost
                   </th>
                   <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                     Enabled
@@ -109,6 +122,7 @@ export default function Inventory() {
                   </th>
                 </tr>
               </thead>
+
               <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                 {items.map(item => (
                   <InventoryItem
