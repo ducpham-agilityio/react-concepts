@@ -1,11 +1,11 @@
 import { memo, useMemo } from 'react';
 
-import { StoreItem } from './Inventory';
+import { Item } from './Inventory';
 
 interface InventoryItemProps {
-  item: StoreItem;
+  item: Item;
   onRemove: (id: number) => void;
-  onUpdate: (id: number, item: StoreItem) => void;
+  onUpdate: (id: number, item: Item) => void;
 }
 
 function InventoryItem({ item, onRemove, onUpdate }: InventoryItemProps) {
@@ -13,7 +13,7 @@ function InventoryItem({ item, onRemove, onUpdate }: InventoryItemProps) {
     onRemove(item.id);
   };
 
-  const handleFieldChange = (field: keyof StoreItem, value: StoreItem[typeof field]) => {
+  const handleFieldChange = (field: keyof Item, value: Item[typeof field]) => {
     onUpdate(item.id, { ...item, [field]: value });
   };
 

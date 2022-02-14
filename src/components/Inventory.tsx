@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 
 import InventoryItem from './InventoryItem';
+import Button from './Button';
 
-export type StoreItem = {
+export type Item = {
   id: number;
   name: string;
   category: string;
@@ -11,7 +12,7 @@ export type StoreItem = {
   enabled: boolean;
 };
 
-const inventoryItems: StoreItem[] = [
+const inventoryItems: Item[] = [
   {
     id: 1,
     name: 'Apple iMac 27"',
@@ -55,13 +56,27 @@ const inventoryItems: StoreItem[] = [
 ];
 
 export default function Inventory() {
-  const [ items, setItems ] = useState<StoreItem[]>(inventoryItems);
+  const [ items, setItems ] = useState<Item[]>(inventoryItems);
 
-  const removeItem = useCallback((id: number) => {
+  const handleAddItem = useCallback(() => {
+    setItems(prevItems => [
+      ...prevItems,
+      {
+        id: 6,
+        name: 'Apple iPod Touch Gen 7',
+        category: 'Accessories',
+        price: 799,
+        quantity: 60,
+        enabled: true,
+      }
+    ]);
+  }, []);
+
+  const handleRemoveItem = useCallback((id: number) => {
     setItems(prevItems => prevItems.filter(item => item.id !== id));
   }, []);
 
-  const updateItem = useCallback((id: number, newItem: StoreItem) => {
+  const handleUpdateItem = useCallback((id: number, newItem: Item) => {
     setItems(prevItems => {
       const matchedItemIndex = prevItems.findIndex(item => item.id === id);
 
@@ -77,25 +92,11 @@ export default function Inventory() {
     });
   }, []);
 
-  const addItem = () => {
-    setItems([
-      ...items,
-      {
-        id: 6,
-        name: 'Apple Watch Series 5',
-        category: 'Accessories',
-        price: 299,
-        quantity: 25,
-        enabled: false,
-      }
-    ]);
-  };
-
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-col">
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
-          <button className="mx-2 my-2 bg-blue-700 transition duration-150 ease-in-out hover:bg-blue-600 rounded text-white px-6 py-2 text-xs" onClick={addItem}>Add New Item</button>
+          <Button onClick={handleAddItem}>Add New Item</Button>
           <div className="inline-block min-w-full align-middle">
             <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
               <thead className="bg-gray-100 dark:bg-gray-700">
@@ -128,8 +129,8 @@ export default function Inventory() {
                   <InventoryItem
                     key={item.id}
                     item={item}
-                    onUpdate={updateItem}
-                    onRemove={removeItem}
+                    onUpdate={handleUpdateItem}
+                    onRemove={handleRemoveItem}
                   />
                 ))}
               </tbody>
