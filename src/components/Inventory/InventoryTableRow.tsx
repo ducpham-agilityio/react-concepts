@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
 
-import { InventoryItem } from '../../models/InventoryItem';
+import { InventoryItem } from 'src/models/InventoryItem';
 
 interface InventoryTableRowProps {
   item: InventoryItem;

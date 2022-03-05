@@ -1,5 +1,5 @@
 import './App.css'
-import InventoryTable from './components/Inventory/InventoryTable';
+import InventoryTable from 'src/components/Inventory/InventoryTable';
 
 function App() {
   return (

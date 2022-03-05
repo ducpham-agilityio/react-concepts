@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 
-import { InventoryItem } from '../../models/InventoryItem';
+import { InventoryItem } from 'src/models/InventoryItem';
 
-import InventoryTableRow from './InventoryTableRow';
-import Button from '../Button';
+import InventoryTableRow from 'src/components/Inventory/InventoryTableRow';
+import Button from 'src/components/Button';
 
 const inventoryItems: InventoryItem[] = [
   {
