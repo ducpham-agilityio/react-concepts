@@ -1,18 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
-import InventoryItem from './InventoryItem';
-import Button from './Button';
+import { InventoryItem } from '../../models/InventoryItem';
 
-export type Item = {
-  id: number;
-  name: string;
-  category: string;
-  price: number;
-  quantity: number;
-  enabled: boolean;
-};
+import InventoryTableRow from './InventoryTableRow';
+import Button from '../Button';
 
-const inventoryItems: Item[] = [
+const inventoryItems: InventoryItem[] = [
   {
     id: 1,
     name: 'Apple iMac 27"',
@@ -55,8 +48,8 @@ const inventoryItems: Item[] = [
   }
 ];
 
-export default function Inventory() {
-  const [ items, setItems ] = useState<Item[]>(inventoryItems);
+export default function InventoryTable() {
+  const [ items, setItems ] = useState<InventoryItem[]>(inventoryItems);
 
   const handleAddItem = useCallback(() => {
     setItems(prevItems => [
@@ -76,7 +69,7 @@ export default function Inventory() {
     setItems(prevItems => prevItems.filter(item => item.id !== id));
   }, []);
 
-  const handleUpdateItem = useCallback((id: number, newItem: Item) => {
+  const handleUpdateItem = useCallback((id: number, newItem: InventoryItem) => {
     setItems(prevItems => {
       const matchedItemIndex = prevItems.findIndex(item => item.id === id);
 
@@ -126,7 +119,7 @@ export default function Inventory() {
 
               <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                 {items.map(item => (
-                  <InventoryItem
+                  <InventoryTableRow
                     key={item.id}
                     item={item}
                     onUpdate={handleUpdateItem}

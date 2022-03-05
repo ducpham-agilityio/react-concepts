@@ -1,5 +1,5 @@
 import './App.css'
-import Inventory from './components/Inventory';
+import InventoryTable from './components/Inventory/InventoryTable';
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <div className="App-body">
 
         {/* Inventory */}
-        <Inventory />
+        <InventoryTable />
       </div>
     </div>
   )

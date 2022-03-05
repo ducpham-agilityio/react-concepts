@@ -1,19 +1,19 @@
 import { memo, useMemo } from 'react';
 
-import { Item } from './Inventory';
+import { InventoryItem } from '../../models/InventoryItem';
 
-interface InventoryItemProps {
-  item: Item;
+interface InventoryTableRowProps {
+  item: InventoryItem;
   onRemove: (id: number) => void;
-  onUpdate: (id: number, item: Item) => void;
+  onUpdate: (id: number, item: InventoryItem) => void;
 }
 
-function InventoryItem({ item, onRemove, onUpdate }: InventoryItemProps) {
+function InventoryTableRow({ item, onRemove, onUpdate }: InventoryTableRowProps) {
   const handleRemove = () => {
     onRemove(item.id);
   };
 
-  const handleFieldChange = (field: keyof Item, value: Item[typeof field]) => {
+  const handleFieldChange = (field: keyof InventoryItem, value: InventoryItem[typeof field]) => {
     onUpdate(item.id, { ...item, [field]: value });
   };
 
@@ -45,4 +45,4 @@ function InventoryItem({ item, onRemove, onUpdate }: InventoryItemProps) {
   )
 }
 
-export default memo(InventoryItem);
+export default memo(InventoryTableRow);
