@@ -1,6 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { InventoryItem } from 'src/models/InventoryItem';
+
+import useCollection from 'src/hooks/useCollection';
 
 import InventoryTableRow from 'src/components/Inventory/InventoryTableRow';
 import Button from 'src/components/Button';
@@ -49,48 +51,37 @@ const inventoryItems: InventoryItem[] = [
 ];
 
 export default function InventoryTable() {
-  const [ items, setItems ] = useState<InventoryItem[]>(inventoryItems);
+  const {
+    collection: items,
+    addItem: handleAddItem,
+    removeItem: handleRemoveItem,
+    updateItem: handleUpdateItem,
+  } = useCollection(inventoryItems);
 
-  const handleAddItem = useCallback(() => {
-    setItems(prevItems => [
-      ...prevItems,
-      {
-        id: 6,
-        name: 'Apple iPod Touch Gen 7',
-        category: 'Accessories',
-        price: 799,
-        quantity: 60,
-        enabled: true,
-      }
-    ]);
-  }, []);
-
-  const handleRemoveItem = useCallback((id: number) => {
-    setItems(prevItems => prevItems.filter(item => item.id !== id));
-  }, []);
-
-  const handleUpdateItem = useCallback((id: number, newItem: InventoryItem) => {
-    setItems(prevItems => {
-      const matchedItemIndex = prevItems.findIndex(item => item.id === id);
-
-      if (matchedItemIndex === -1) {
-        return prevItems;
-      };
-
-      return [
-        ...prevItems.slice(0, matchedItemIndex),
-        newItem,
-        ...prevItems.slice(matchedItemIndex + 1)
-      ];
+  const handleAddRandomItem = useCallback(() => {
+    handleAddItem({
+      id: 6,
+      name: 'Apple iPod Touch Gen 7',
+      category: 'Accessories',
+      price: 799,
+      quantity: 60,
+      enabled: true,
     });
   }, []);
+
+  const SearchInput = useMemo(() => (
+    <div className="relative text-gray-600 mb-4">
+      <input type="search" name="search" placeholder="Search" className="bg-white h-10 px-5 rounded-lg text-sm focus:outline-none" />
+    </div>
+  ), []);
 
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-col">
-        <div className="overflow-x-auto shadow-md sm:rounded-lg">
-          <Button onClick={handleAddItem}>Add New Item</Button>
-          <div className="inline-block min-w-full align-middle">
+        <div className="overflow-x-auto sm:rounded-lg">
+          {SearchInput}
+
+          <div className="inline-block min-w-full align-middle shadow-md">
             <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
               <thead className="bg-gray-100 dark:bg-gray-700">
                 <tr>
@@ -129,6 +120,10 @@ export default function InventoryTable() {
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div className="overflow-x-auto sm:rounded-lg">
+          <Button onClick={handleAddRandomItem}>Add New Item</Button>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { InventoryItem } from 'src/models/InventoryItem';
 interface InventoryTableRowProps {
   item: InventoryItem;
   onRemove: (id: number) => void;
-  onUpdate: (id: number, item: InventoryItem) => void;
+  onUpdate: (item: InventoryItem) => void;
 }
 
 function InventoryTableRow({ item, onRemove, onUpdate }: InventoryTableRowProps) {
@@ -14,7 +14,7 @@ function InventoryTableRow({ item, onRemove, onUpdate }: InventoryTableRowProps)
   };
 
   const handleFieldChange = (field: keyof InventoryItem, value: InventoryItem[typeof field]) => {
-    onUpdate(item.id, { ...item, [field]: value });
+    onUpdate({ ...item, [field]: value });
   };
 
   const itemCost = useMemo(() => {
