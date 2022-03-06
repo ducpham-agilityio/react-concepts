@@ -1,65 +1,21 @@
 import { useCallback, useMemo } from 'react';
 
-import { InventoryItem } from 'src/models/InventoryItem';
-
-import useCollection from 'src/hooks/useCollection';
+// Contexts
+import { useInventory } from 'src/contexts/inventory';
 
 import InventoryTableRow from 'src/components/Inventory/InventoryTableRow';
 import Button from 'src/components/Button';
 
-const inventoryItems: InventoryItem[] = [
-  {
-    id: 1,
-    name: 'Apple iMac 27"',
-    category: 'Computer',
-    price: 1000,
-    quantity: 10,
-    enabled: true,
-  },
-  {
-    id: 2,
-    name: 'Apple iPhone 13 Pro Max',
-    category: 'Phone',
-    price: 1500,
-    quantity: 18,
-    enabled: true,
-  },
-  {
-    id: 3,
-    name: 'Apple MacBook Pro 13"',
-    category: 'Laptop',
-    price: 1999,
-    quantity: 50,
-    enabled: true,
-  },
-  {
-    id: 4,
-    name: 'Apple MacBook Air 13"',
-    category: 'Laptop',
-    price: 1500,
-    quantity: 112,
-    enabled: true,
-  },
-  {
-    id: 5,
-    name: 'Apple iPod Touch',
-    category: 'Accessories',
-    price: 699,
-    quantity: 6,
-    enabled: true,
-  }
-];
-
 export default function InventoryTable() {
   const {
-    collection: items,
-    addItem: handleAddItem,
-    removeItem: handleRemoveItem,
-    updateItem: handleUpdateItem,
-  } = useCollection(inventoryItems);
+    items,
+    addItem,
+    removeItem,
+    updateItem,
+  } = useInventory();
 
   const handleAddRandomItem = useCallback(() => {
-    handleAddItem({
+    addItem({
       id: 6,
       name: 'Apple iPod Touch Gen 7',
       category: 'Accessories',
@@ -113,8 +69,8 @@ export default function InventoryTable() {
                   <InventoryTableRow
                     key={item.id}
                     item={item}
-                    onUpdate={handleUpdateItem}
-                    onRemove={handleRemoveItem}
+                    onUpdate={updateItem}
+                    onRemove={removeItem}
                   />
                 ))}
               </tbody>
