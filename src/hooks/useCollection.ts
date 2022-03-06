@@ -4,7 +4,7 @@ interface HasId {
   id: number;
 }
 
-export default function useCollection<T extends HasId>(initialCollection: T[]) {
+export default function useCollection<T extends HasId>(initialCollection: T[] | (() => T[])){
   const [collection, setCollection] = useState(initialCollection);
 
   const addItem = useCallback((item: T) => {
