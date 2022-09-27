@@ -9,13 +9,13 @@ import Button from 'src/components/Button';
 export default function InventoryTable() {
   const {
     items,
-    addItem,
-    removeItem,
+    createItem,
+    deleteItem,
     updateItem,
   } = useInventory();
 
   const handleAddRandomItem = useCallback(() => {
-    addItem({
+    createItem({
       id: 6,
       name: 'Apple iPod Touch Gen 7',
       category: 'Accessories',
@@ -70,7 +70,7 @@ export default function InventoryTable() {
                     key={item.id}
                     item={item}
                     onUpdate={updateItem}
-                    onRemove={removeItem}
+                    onRemove={deleteItem}
                   />
                 ))}
               </tbody>
