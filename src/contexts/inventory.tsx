@@ -19,6 +19,8 @@ const InventoryContext = createContext<InventoryContextProps>({
 });
 InventoryContext.displayName = 'InventoryContext';
 
+export const useInventory = () => useContext(InventoryContext);
+
 interface InventoryProviderProps {
   initialItems?: InventoryItem[] | (() => InventoryItem[]);
   children: React.ReactNode;
@@ -46,4 +48,3 @@ export const InventoryProvider: FC<InventoryProviderProps> = ({ initialItems = [
   )
 };
 
-export const useInventory = () => useContext(InventoryContext);
