@@ -6,7 +6,7 @@ import { InventoryItem } from 'src/models/InventoryItem';
 
 import InventoryTable from 'src/components/Inventory/InventoryTable';
 
-const initialInventoryItems = (): InventoryItem[] => [
+const initialInventoryItems: InventoryItem[] = [
   {
     id: 1,
     name: 'Apple iMac 27"',

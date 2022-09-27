@@ -6,40 +6,38 @@ import useCollection from 'src/hooks/useCollection';
 
 interface InventoryContextProps {
   items: InventoryItem[];
-  addItem: (item: InventoryItem) => void;
-  removeItem: (id: number) => void;
+
+  createItem: (item: InventoryItem) => void;
   updateItem: (item: InventoryItem) => void;
+  deleteItem: (id: number) => void;
 }
 
 const InventoryContext = createContext<InventoryContextProps>({
   items: [],
-  addItem: () => {},
-  removeItem: () => {},
-  updateItem: () => {},
-});
+} as unknown as InventoryContextProps);
 InventoryContext.displayName = 'InventoryContext';
 
 export const useInventory = () => useContext(InventoryContext);
 
 interface InventoryProviderProps {
-  initialItems?: InventoryItem[] | (() => InventoryItem[]);
+  initialItems?: InventoryItem[];
   children: React.ReactNode;
 }
 
 export const InventoryProvider: FC<InventoryProviderProps> = ({ initialItems = [], children }) => {
   const {
-    collection: items,
-    addItem,
-    removeItem,
+    state: { collection: items },
+    createItem,
+    deleteItem,
     updateItem,
-  } = useCollection(initialItems);
+  } = useCollection<InventoryItem>(initialItems);
 
   return (
     <InventoryContext.Provider
       value={{
         items,
-        addItem,
-        removeItem,
+        createItem,
+        deleteItem,
         updateItem,
       }}
     >

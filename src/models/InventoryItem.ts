@@ -1,5 +1,6 @@
+import { HasId } from "../hooks/useCollection";
 
-export type InventoryItem = {
+export interface InventoryItem extends HasId {
   id: number;
   name: string;
   category: string;
