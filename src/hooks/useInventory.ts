@@ -13,21 +13,21 @@ export function useInventory() {
       type: ACTION_TYPE.CREATE_INVENTORY_ITEM,
       payload: item,
     });
-  }, []);
+  }, [dispatch]);
 
   const deleteItem = useCallback((id: number) => {
     dispatch({
       type: ACTION_TYPE.DELETE_INVENTORY_ITEM,
       payload: id,
     });
-  }, []);
+  }, [dispatch]);
 
   const updateItem = useCallback((item: InventoryItem) => {
     dispatch({
       type: ACTION_TYPE.UPDATE_INVENTORY_ITEM,
       payload: item,
     });
-  }, []);
+  }, [dispatch]);
 
   return {
     inventory: state.inventory,
