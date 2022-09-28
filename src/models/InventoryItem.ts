@@ -1,4 +1,4 @@
-import { HasId } from "../hooks/useCollection";
+import { HasId } from "../types/base";
 
 export interface InventoryItem extends HasId {
   id: number;

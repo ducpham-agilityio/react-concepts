@@ -1,6 +1,6 @@
 import './App.css';
 
-import { InventoryProvider } from 'src/contexts/inventory';
+import { StoreProvider } from './store';
 
 import { InventoryItem } from 'src/models/InventoryItem';
 
@@ -55,9 +55,13 @@ function App() {
       <div className="App-body">
 
         {/* Inventory */}
-        <InventoryProvider initialItems={initialInventoryItems}>
+        <StoreProvider initialState={{
+          inventory: {
+            inventory: initialInventoryItems
+          }
+        }}>
           <InventoryTable />
-        </InventoryProvider>
+        </StoreProvider>
       </div>
     </div>
   )

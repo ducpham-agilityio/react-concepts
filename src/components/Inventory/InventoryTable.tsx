@@ -1,14 +1,14 @@
 import { useCallback, useMemo } from 'react';
 
-// Contexts
-import { useInventory } from 'src/contexts/inventory';
+// Hooks
+import { useInventory } from '../../hooks/useInventory';
 
 import InventoryTableRow from 'src/components/Inventory/InventoryTableRow';
 import Button from 'src/components/Button';
 
 export default function InventoryTable() {
   const {
-    items,
+    inventory: { inventory: items } = {},
     createItem,
     deleteItem,
     updateItem,
@@ -65,7 +65,7 @@ export default function InventoryTable() {
               </thead>
 
               <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                {items.map(item => (
+                {items?.map(item => (
                   <InventoryTableRow
                     key={item.id}
                     item={item}
