@@ -9,7 +9,7 @@ export const combineReducers = <RootState, RootActions>(reducers: CombinedReduce
       {}
     );
 
-    const dispatch = (action: RootActions) => Object.keys(combineReducers)
+    const dispatch = (action: RootActions) => Object.keys(reducers)
       .map(key => reducers[key][1])
       .forEach(fn => fn(action));
 
