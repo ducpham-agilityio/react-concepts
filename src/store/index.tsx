@@ -40,7 +40,9 @@ export const StoreProvider = ({ children, initialState }: StoreProviderProps) =>
     inventory: useReducer(inventoryReducer, { ...defaultState.inventory, ...initialState?.inventory }),
     stats: useReducer(statsReducer, { ...defaultState.stats, ...initialState?.stats }),
   });
-  const store = useMemo(() => [state, dispatch] as [Partial<RootState>, (action: InventoryActions) => void], [state]);
+
+  const memoizedDispatch = useMemo(() => dispatch, []);
+  const store = useMemo(() => [state, memoizedDispatch] as [Partial<RootState>, (action: InventoryActions) => void], [state]);
 
   return (
     <StoreContext.Provider value={store}>

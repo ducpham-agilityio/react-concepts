@@ -5,7 +5,7 @@ export interface StatsState {
   counter: number;
 }
 
-export const reducer = (state: StatsState, action: InventoryActions<any>) => {
+export const reducer = (state: StatsState, action: InventoryActions) => {
   switch(action.type) {
     case ACTION_TYPE.CREATE_INVENTORY_ITEM: {
       return {
